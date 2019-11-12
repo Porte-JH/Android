@@ -36,6 +36,19 @@ public class MainActivity extends AppCompatActivity {
     List<Category> cg = new ArrayList<Category>();
     List<String> deptno;
     List<String> deptkor;
+
+    List<String> gradeno;
+    List<String> gradekor;
+
+    List<String> classno;
+    List<String> classkor;
+
+    List<String> statusno;
+    List<String> statuskor;
+
+    List<String> mentono;
+    List<String> mentokor;
+
     SpinnerAdapter spinnerAdapter;
 
     private EditText num, name, phone;
@@ -43,7 +56,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView message;
     private AlertDialog alertDialog;
     private Spinner department;
-
+    private Spinner grade;
+    private Spinner classes;
+    private Spinner status;
+    private Spinner mento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +78,12 @@ public class MainActivity extends AppCompatActivity {
         btn_save = (Button) findViewById(R.id.btn_save);
 
         message = (TextView) findViewById(R.id.message);
-        department = (Spinner) findViewById(R.id.department);
 
+        department = (Spinner) findViewById(R.id.department);
+        grade = (Spinner) findViewById(R.id.grade);
+        classes = (Spinner) findViewById(R.id.classes);
+        status = (Spinner) findViewById(R.id.status);
+        mento = (Spinner) findViewById(R.id.mento);
 
         if(D){
             Log.i(TAG, "JUST START!!");
@@ -107,8 +127,12 @@ public class MainActivity extends AppCompatActivity {
                     //trim() == 공백 제거
                     s = db.InsertORUpdate(num.getText().toString().trim(),
                             name.getText().toString().trim(),
-                           phone.getText().toString().trim(),
-                           deptno.get(department.getSelectedItemPosition()));
+                            phone.getText().toString().trim(),
+                            deptno.get(department.getSelectedItemPosition()),
+                            gradeno.get(grade.getSelectedItemPosition()),
+                            classno.get(classes.getSelectedItemPosition()),
+                            statusno.get(status.getSelectedItemPosition()),
+                            mentono.get(mento.getSelectedItemPosition()));
                     db.closeDB();
 
                     if(s != null){ // student테이블 s 의 값이 null이 아닐 경우
@@ -151,9 +175,13 @@ public class MainActivity extends AppCompatActivity {
         ////////////////////////////////////////////////////////////////////////////////////////////
 
         makeDepartmentSpinner();
+        makeGradeSpinner();
+        makeClassSpinner();
+        makeStatusSpinner();
+        makeMentoSpinner();
     }
 
-
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void setListDepartment(){
         deptno = new ArrayList<String>();
         deptkor = new ArrayList<String>();
@@ -166,7 +194,6 @@ public class MainActivity extends AppCompatActivity {
             deptkor.add(cg.get(q).getCodekor());
         }
     }
-
     public void makeDepartmentSpinner(){
 
         setListDepartment();
@@ -181,10 +208,125 @@ public class MainActivity extends AppCompatActivity {
             department.setSelection(0);
         }
         spinnerAdapter.notifyDataSetChanged();
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public void setListGrade(){
+        gradeno = new ArrayList<String>();
+        gradekor = new ArrayList<String>();
+
+        cg = db.select_category("grade");
+        db.closeDB();
+
+        for(int q = 0; q < cg.size(); q++){
+            gradeno.add(cg.get(q).getCode());
+            gradekor.add(cg.get(q).getCodekor());
+        }
+    }
+    public void makeGradeSpinner(){
+
+        setListGrade();
+        spinnerAdapter= new SpinnerAdapter(getApplicationContext(), android.R.layout.simple_spinner_item, gradekor);
+        grade.setAdapter(spinnerAdapter);
+
+        if(gradekor.size() > 0){
+            grade.setSelection(grade.getSelectedItemPosition());
+        } else {
+            gradeno.add("404");
+            gradekor.add("DATA NOT FOUND");
+            grade.setSelection(0);
+        }
+        spinnerAdapter.notifyDataSetChanged();
 
     }
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public void setListClass(){
+        classno = new ArrayList<String>();
+        classkor = new ArrayList<String>();
 
+        cg = db.select_category("classes");
+        db.closeDB();
 
+        for(int q = 0; q < cg.size(); q++){
+            classno.add(cg.get(q).getCode());
+            classkor.add(cg.get(q).getCodekor());
+        }
+    }
+    public void makeClassSpinner(){
+
+        setListClass();
+        spinnerAdapter= new SpinnerAdapter(getApplicationContext(), android.R.layout.simple_spinner_item, classkor);
+        classes.setAdapter(spinnerAdapter);
+
+        if(classkor.size() > 0){
+            classes.setSelection(classes.getSelectedItemPosition());
+        } else {
+            classno.add("404");
+            classkor.add("DATA NOT FOUND");
+            classes.setSelection(0);
+        }
+        spinnerAdapter.notifyDataSetChanged();
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public void setListStatus(){
+        statusno = new ArrayList<String>();
+        statuskor = new ArrayList<String>();
+
+        cg = db.select_category("status");
+        db.closeDB();
+
+        for(int q = 0; q < cg.size(); q++){
+            statusno.add(cg.get(q).getCode());
+            statuskor.add(cg.get(q).getCodekor());
+        }
+    }
+    public void makeStatusSpinner(){
+
+        setListStatus();
+        spinnerAdapter= new SpinnerAdapter(getApplicationContext(), android.R.layout.simple_spinner_item, statuskor);
+        status.setAdapter(spinnerAdapter);
+
+        if(statuskor.size() > 0){
+            status.setSelection(status.getSelectedItemPosition());
+        } else {
+            statusno.add("404");
+            statuskor.add("DATA NOT FOUND");
+            status.setSelection(0);
+        }
+        spinnerAdapter.notifyDataSetChanged();
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public void setListMento(){
+        mentono = new ArrayList<String>();
+        mentokor = new ArrayList<String>();
+
+        cg = db.select_category("mento");
+        db.closeDB();
+
+        for(int q = 0; q < cg.size(); q++){
+            mentono.add(cg.get(q).getCode());
+            mentokor.add(cg.get(q).getCodekor());
+        }
+    }
+    public void makeMentoSpinner(){
+
+        setListMento();
+        spinnerAdapter= new SpinnerAdapter(getApplicationContext(), android.R.layout.simple_spinner_item, mentokor);
+        mento.setAdapter(spinnerAdapter);
+
+        if(mentokor.size() > 0){
+            mento.setSelection(mento.getSelectedItemPosition());
+        } else {
+            mentono.add("404");
+            mentokor.add("DATA NOT FOUND");
+            mento.setSelection(0);
+        }
+        spinnerAdapter.notifyDataSetChanged();
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public AlertDialog deleteConfirm(){
 
@@ -230,6 +372,10 @@ public class MainActivity extends AppCompatActivity {
         name.setText(s.getName());
         phone.setText(s.getPhone());
         department.setSelection(deptno.indexOf(s.getDepartment()));
+        grade.setSelection(gradeno.indexOf(s.getGrade()));
+        classes.setSelection(classno.indexOf(s.getClasses()));
+        status.setSelection(statusno.indexOf(s.getStatus()));
+        mento.setSelection(statusno.indexOf(s.getMento()));
     }
     public void onSetNull(){
         //num.setText("");

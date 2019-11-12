@@ -4,15 +4,19 @@ import java.io.Serializable;
 
 public class Student implements Serializable {
 
-    String num, name, phone, department;
+    String num, name, phone, department, grade, classes, status, mento;
 
     public Student(){}
 
-    public Student(String num, String name, String phone, String department) {
+    public Student(String num, String name, String phone, String department, String grade, String classes, String status, String mento) {
         this.num = num;
         this.name = name;
         this.phone = phone;
         this.department = department;
+        this.grade = grade;
+        this.classes = classes;
+        this.status = status;
+        this.mento = mento;
     }
 
     public String getNum() {
@@ -47,6 +51,38 @@ public class Student implements Serializable {
         this.department = department;
     }
 
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public String getClasses() {
+        return classes;
+    }
+
+    public void setClasses(String classes) {
+        this.classes = classes;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getMento() {
+        return mento;
+    }
+
+    public void setMento(String mento) {
+        this.mento = mento;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -54,6 +90,10 @@ public class Student implements Serializable {
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
                 ", department='" + department + '\'' +
+                ", grade='" + grade + '\'' +
+                ", classes='" + classes + '\'' +
+                ", status='" + status + '\'' +
+                ", mento='" + mento + '\'' +
                 '}';
     }
 }

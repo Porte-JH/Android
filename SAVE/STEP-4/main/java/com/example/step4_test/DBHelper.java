@@ -38,6 +38,10 @@ public class DBHelper extends SQLiteOpenHelper {
                     "name TEXT NOT NULL," +
                     "phone TEXT NOT NULL," +
                     "department TEXT NOT NULL," +
+                    "grade TEXT NOT NULL," +
+                    "classes TEXT NOT NULL," +
+                    "status TEXT NOT NULL," +
+                    "mento TEXT NOT NULL," +
                     "PRIMARY KEY(num)" + ")";
 
     private static final String CREATE_CATEGOTY_TABLE =
@@ -64,8 +68,100 @@ public class DBHelper extends SQLiteOpenHelper {
                     "(" +
                     "grp, code, codekor" + ")" +
                     "VALUES" +
-                    "(" + "'department', '2001', '멀티미디어과'" + ")";
+                    "(" + "'department', '2001', '실내디자인과'" + ")";
 
+
+
+    private final String INPUT_DATA_GRADE_1 =
+            "INSERT INTO " + Table_Categories +
+                    "(" +
+                    "grp, code, codekor" + ")" +
+                    "VALUES" +
+                    "(" + "'grade', '1', '1학년'" + ")";
+
+    private final String INPUT_DATA_GRADE_2 =
+            "INSERT INTO " + Table_Categories +
+                    "(" +
+                    "grp, code, codekor" + ")" +
+                    "VALUES" +
+                    "(" + "'grade', '2', '2학년'" + ")";
+
+    private final String INPUT_DATA_GRADE_3 =
+            "INSERT INTO " + Table_Categories +
+                    "(" +
+                    "grp, code, codekor" + ")" +
+                    "VALUES" +
+                    "(" + "'grade', '3', '3학년'" + ")";
+
+    private final String INPUT_DATA_GRADE_4 =
+            "INSERT INTO " + Table_Categories +
+                    "(" +
+                    "grp, code, codekor" + ")" +
+                    "VALUES" +
+                    "(" + "'grade', '4', '4학년'" + ")";
+
+    private final String INPUT_DATA_CLASS_1 =
+            "INSERT INTO " + Table_Categories +
+                    "(" +
+                    "grp, code, codekor" + ")" +
+                    "VALUES" +
+                    "(" + "'classes', 'a', 'A반'" + ")";
+
+    private final String INPUT_DATA_CLASS_2 =
+            "INSERT INTO " + Table_Categories +
+                    "(" +
+                    "grp, code, codekor" + ")" +
+                    "VALUES" +
+                    "(" + "'classes', 'b', 'B반'" + ")";
+
+    private final String INPUT_DATA_STATUS_1 =
+            "INSERT INTO " + Table_Categories +
+                    "(" +
+                    "grp, code, codekor" + ")" +
+                    "VALUES" +
+                    "(" + "'status', '1', '재학'" + ")";
+
+    private final String INPUT_DATA_STATUS_2 =
+            "INSERT INTO " + Table_Categories +
+                    "(" +
+                    "grp, code, codekor" + ")" +
+                    "VALUES" +
+                    "(" + "'status', '2', '휴학'" + ")";
+
+    private final String INPUT_DATA_STATUS_3 =
+            "INSERT INTO " + Table_Categories +
+                    "(" +
+                    "grp, code, codekor" + ")" +
+                    "VALUES" +
+                    "(" + "'status', '3', '졸업'" + ")";
+
+    private final String INPUT_DATA_STATUS_4 =
+            "INSERT INTO " + Table_Categories +
+                    "(" +
+                    "grp, code, codekor" + ")" +
+                    "VALUES" +
+                    "(" + "'status', '4', '자퇴'" + ")";
+
+    private final String INPUT_DATA_MENTO_1 =
+            "INSERT INTO " + Table_Categories +
+                    "(" +
+                    "grp, code, codekor" + ")" +
+                    "VALUES" +
+                    "(" + "'mento', '1', '이형일'" + ")";
+
+    private final String INPUT_DATA_MENTO_2 =
+            "INSERT INTO " + Table_Categories +
+                    "(" +
+                    "grp, code, codekor" + ")" +
+                    "VALUES" +
+                    "(" + "'mento', '2', '김인범'" + ")";
+
+    private final String INPUT_DATA_MENTO_3 =
+            "INSERT INTO " + Table_Categories +
+                    "(" +
+                    "grp, code, codekor" + ")" +
+                    "VALUES" +
+                    "(" + "'mento', '3', '김재생'" + ")";
 
     //저장한 DB정보에 따라 DB요소를 가져온다.
     public DBHelper(Context c) {
@@ -77,12 +173,43 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_STUDENTS_TABLE);
         db.execSQL(CREATE_CATEGOTY_TABLE);
 
+
+        INPUT_MENTO(db);
+        INPUT_STATUS(db);
+        INPUT_CLASS(db);
+        INPUT_GRADE(db);
         INPUT_DEPT(db);
+
     }
 
     public void INPUT_DEPT(SQLiteDatabase db){
         db.execSQL(INPUT_DATA_DEPT_1);
         db.execSQL(INPUT_DATA_DEPT_2);
+    }
+
+    public void INPUT_GRADE(SQLiteDatabase db){
+        db.execSQL(INPUT_DATA_GRADE_1);
+        db.execSQL(INPUT_DATA_GRADE_2);
+        db.execSQL(INPUT_DATA_GRADE_3);
+        db.execSQL(INPUT_DATA_GRADE_4);
+    }
+
+    public void INPUT_CLASS(SQLiteDatabase db){
+        db.execSQL(INPUT_DATA_CLASS_1);
+        db.execSQL(INPUT_DATA_CLASS_2);
+    }
+
+    public void INPUT_STATUS(SQLiteDatabase db){
+        db.execSQL(INPUT_DATA_STATUS_1);
+        db.execSQL(INPUT_DATA_STATUS_2);
+        db.execSQL(INPUT_DATA_STATUS_3);
+        db.execSQL(INPUT_DATA_STATUS_4);
+    }
+
+    public void INPUT_MENTO(SQLiteDatabase db){
+        db.execSQL(INPUT_DATA_MENTO_1);
+        db.execSQL(INPUT_DATA_MENTO_2);
+        db.execSQL(INPUT_DATA_MENTO_3);
     }
 
     @Override // DB버전 체크
@@ -122,6 +249,10 @@ public class DBHelper extends SQLiteOpenHelper {
             s.setName(c.getString(c.getColumnIndex("name")));
             s.setPhone(c.getString(c.getColumnIndex("phone")));
             s.setDepartment(c.getString(c.getColumnIndex("department")));
+            s.setGrade(c.getString(c.getColumnIndex("grade")));
+            s.setClasses(c.getString(c.getColumnIndex("classes")));
+            s.setStatus(c.getString(c.getColumnIndex("status")));
+            s.setMento(c.getString(c.getColumnIndex("mento")));
             if(D){
                 Log.i(TAG,"s.tostring: " + s.toString());
             }
@@ -132,7 +263,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     //update문 (크레인)
-    public Student InsertORUpdate(String num, String name, String phone, String department){
+    public Student InsertORUpdate(String num, String name, String phone,
+                                  String department, String grade, String classes, String status, String mento){
         //입력한 기본키에 따라 정보 불러옴.
         //select(num);
         //기본키 혹은 이름값이 null일 경우 null값 반환.
@@ -150,6 +282,10 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("name", name);
         values.put("phone", phone);
         values.put("department", department);
+        values.put("grade", grade);
+        values.put("classes", classes);
+        values.put("status", status);
+        values.put("mento", mento);
         if(s == null){ // 데이터가 존재하지 않을 때
             //대체 어따쓰는 변수지 (???????????????????)
             long n = db.insert(Table_Students, null, values);
