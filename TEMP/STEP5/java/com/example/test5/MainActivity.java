@@ -1,57 +1,46 @@
-package info.example.app2student36;
+package com.example.test5;
 
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.os.Handler;
-import android.text.TextUtils;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Menu;
-
-import android.content.Intent;
 import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.text.TextUtils;
 import android.util.Log;
-
-import android.widget.AdapterView;
+import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.example.test5.Adapter.SpinnerAdapter;
+import com.example.test5.App.AppCamera;
+import com.example.test5.Model.Code;
+import com.example.test5.Model.Student;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import info.example.app2student36.adapter.SpinnerAdapter;
-import info.example.app2student36.adapter.StudentAdapter;
-import info.example.app2student36.app.AppCamera;
-import info.example.app2student36.app.AppListViewHeight;
-import info.example.app2student36.app.AppConfig;
-import info.example.app2student36.helper.DatabaseHelper;
-import info.example.app2student36.model.Code;
-import info.example.app2student36.model.Student;
 
-public class MainActivity extends AppCompatActivity
-        implements AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity {
 
     private final String TAG = getClass().getSimpleName();
-    private final boolean D = true; // debug
+    private final boolean D = true;
 
     Bundle args;
-    AppConfig ac;
 
     String imageStoragePath;
     public static final int BITMAP_SAMPLE_SIZE = 8;
@@ -60,54 +49,38 @@ public class MainActivity extends AppCompatActivity
     private ImageView imgPreview;
     private VideoView videoPreview;
     private EditText hakbun, name, phone;
-    private Button btSelect, btSave, btClear, btDelete;
+    Button btSelect, btSave, btClear, btDelete;
     private TextView message;
-    private #
 
     //for spinner UI
     Spinner hakgoaSpinner;
     List<String> hakgoas;
     List<String> hakgoasKor;
 
-    // database
-    DatabaseHelper db;
-
     // adapters
     SpinnerAdapter spinnerAdapter;
-    #r;
 
     // student table
     Student s;
     List<Student> ss = new ArrayList<Student>();
-
     // code table
     Code c;
     List<Code> cs = new ArrayList<Code>();
 
-    AlertDialog alertDialog;
+    // database
+    DatabaseHelper db;
+
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         if (D) Log.i(TAG, "just started!!");
 
         //Activity에서 전달된 데이터를 가져옴니다
-        args = getIntent().getExtras() != null ? getIntent().getExtras() : new Bundle();
-        ac = args.getSerializable("mVar") != null ?
-                (AppConfig) args.getSerializable("mVar") : new AppConfig();
+        args = getIntent().getExtras() != null ?  getIntent().getExtras() : new Bundle();
 
         db = new DatabaseHelper(getApplicationContext());
 
@@ -139,8 +112,6 @@ public class MainActivity extends AppCompatActivity
                 db.closeDB();
                 if (s != null) {
                     onSetUI(s);
-                    setCurrentMarkListViewItemNewAddedStudent(s.getHakbun(),stuAdapter);
-                    setCurrentMarkListViewItem();
                     message.setText("요청한 학번("+hakbun.getText().toString().trim()+")을 조회하였습니다.");
                 } else {
                     onSetUINulls();
@@ -202,10 +173,6 @@ public class MainActivity extends AppCompatActivity
                 db.closeDB();
                 if (s != null) {
                     onSetUI(s);
-                    notifyListItems();
-                    setCurrentMarkListViewItemNewAddedStudent(s.getHakbun(),stuAdapter);
-                    if (D) Log.i(TAG, "ac.getListViewItemPositionStudentAdapter(): " + ac.getListViewItemPositionStudentAdapter());ac.toString();
-                    setCurrentMarkListViewItem();
                     message.setText("요청한 학번("+hakbun.getText().toString().trim()+")을 저장하였습니다.");
                 } else {
                     onSetUINulls();
@@ -214,102 +181,13 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        message = findViewById(R.id.message);
-
-        listView = findViewById(#);
-        stuAdapter = new StudentAdapter(#);
-        listView.setAdapter(#);
-
-        if (# > 0) {
-            setCurrentMarkListViewItem();
-            if (D) Log.i(TAG, "ac.getListViewItemPositionStudentAdapter(): " + ac.getListViewItemPositionStudentAdapter());
-            onSetUI(#);
-            message.setText(ss.size() + "명이 조회되었습니다.");
-
-        }
-
-        try {
-
-            listView.setOnItemClickListener(this);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        message = (TextView) findViewById(R.id.message);
     }
+
     @Override
     public void onStart() {
         super.onStart();
 
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        if (notifyListItems() > 0) {
-            setCurrentMarkListViewItem();
-        }
-    }
-
-    public void setCurrentMarkListViewItem() {
-
-        Handler handler = new Handler();
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-
-                stuAdapter.setClickMode(false);
-                stuAdapter.setSellectedPosition(
-                        ac.getListViewItemPositionStudentAdapter()
-                );
-
-                listView.setItemChecked(
-                        ac.getListViewItemPositionStudentAdapter(), true);
-                listView.smoothScrollToPosition(
-                        ac.getListViewItemPositionStudentAdapter());
-
-            }
-        };
-
-        handler.postDelayed(runnable, 500);
-        stuAdapter.notifyDataSetChanged();
-    }
-
-    public int notifyListItems() {
-
-        stuAdapter.#;
-        ss = db.#;
-        if(ss != null) {
-
-            for (#) {
-                stuAdapter.#;
-               if (D) Log.i(TAG, s.toString());
-            }
-
-            listView.postDelayed(new Runnable() {
-                public void run() {
-                    AppListViewHeight.setListViewHeightBasedOnChildren(listView);
-                }
-            }, 400);
-
-            stuAdapter.#;
-        }
-
-        return #;
-    }
-
-    public void setCurrentMarkListViewItemNewAddedStudent(String hakbun, StudentAdapter studentAdapter){
-
-        int pos = 0;
-        for (final Student s : studentAdapter.getStudents()) {
-            if(s.getHakbun().equals(hakbun))
-                break;
-            else
-                pos += 1;
-        }
-        ac.setListViewItemPositionStudentAdapter(pos);
-        if (D) Log.i(TAG, "setListViewItemPositionStudentAdapter : " + pos);
     }
 
     public void makeHakgoaSpinner() {
@@ -351,17 +229,6 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void onSetUI(int position) {
-
-        if(!stuAdapter.isEmpty()) {
-            s = db.selectStudent(stuAdapter.getItem(position).getHakbun());
-            onSetUI(s);
-        }
-        else
-            onSetUINulls();
-
-    }
-
     private void onSetImage(String imageName) {
 
         if (imageName != null) {
@@ -392,7 +259,6 @@ public class MainActivity extends AppCompatActivity
 
         name.setText("");
         phone.setText("");
-        hakgoaSpinner.setSelection(hakgoas.indexOf(0));
 
         onSetImageNameNull();
     }
@@ -458,7 +324,6 @@ public class MainActivity extends AppCompatActivity
                     message.setText("요청한 학생이 없습니다.");
                 } else {
                     onSetUINulls();
-                    notifyListItems();
                     message.setText("요청한 학생을 삭제하였습니다.");
                 }
 
@@ -480,12 +345,7 @@ public class MainActivity extends AppCompatActivity
             dialog.dismiss();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+
 
     protected void onActivityResult(int requestCode,
                                     int resultCode, Intent intent) {
@@ -541,30 +401,6 @@ public class MainActivity extends AppCompatActivity
     public void onDestroy() {
         // Don't forget to shutdown!
         super.onDestroy();
-
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view,
-                            int position, long id) {
-
-        ac.setListViewItemPositionStudentAdapter(#);
-        args.putSerializable("ac", ac);
-
-        s = stuAdapter.getStudent(#);
-        if(D) Log.i(TAG,"onItemClick(): "+s.toString());
-        args.putSerializable("student", s);
-        stuAdapter.#;
-
-        stuAdapter.setClickMode(false);
-        stuAdapter.setSellectedPosition(position);
-        view.setBackgroundColor(0x9934B5E4);
-        view.invalidate();
-
-        s = db.selectStudent(#);
-        db.closeDB();
-        onSetUI(s);
-        message.setText("리스트에서 학번( "+s.getHakbun()+" )을 선택합니다.");
 
     }
 

@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MainActivity"
+    tools:showIn="@layout/activity_main">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -218,7 +221,7 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="0dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -330,6 +333,88 @@
         </LinearLayout>
 
         <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="리스트"
+            android:textColor="@color/title2"
+            android:textSize="@dimen/title3"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/list_divider" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="03sp"
+            android:paddingBottom="03sp"
+            android:background="@color/gray_400"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="2dp"
+                android:layout_weight=".20"
+                android:gravity="center"
+                android:text="학번"
+                android:textColor="@color/title2"
+                android:textSize="@dimen/title2"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_weight=".20"
+                android:gravity="center"
+                android:text="이름"
+                android:textColor="@color/title2"
+                android:textSize="@dimen/title2"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_weight=".30"
+                android:gravity="center"
+                android:text="전화번호"
+                android:textColor="@color/title2"
+                android:textSize="@dimen/title2"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight=".30"
+                android:gravity="center"
+                android:text="학과"
+                android:textColor="@color/title2"
+                android:textSize="@dimen/title2"
+                android:textStyle="normal" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/list_divider" />
+
+        <ListView
+            android:id="@+id/students"
+            # />
+
+         <TextView
             android:id="@+id/message"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
