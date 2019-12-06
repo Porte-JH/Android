@@ -1,4 +1,4 @@
-package com.example.administrator.ps5;
+package com.example.step5;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -18,18 +17,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.administrator.ps5.App.AppCamera;
-import com.example.administrator.ps5.Model.Student;
-
-import java.io.File;
-import java.util.List;
-
+import com.example.step5.App.AppCamera;
+import com.example.step5.Model.Student;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+
+import java.io.File;
+import java.util.List;
 
 
 
@@ -96,13 +95,21 @@ public class PhotographyActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(s.getName()+"의 이미지/동영상 지정!")
                 .setPositiveButton("photo", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
+                    public void onClick(DialogInterface dialog, int which) { //빈칸
+                        if(AppCamera.checkPermissions(getApplicationContext())){
+                            captureImage();
+                        } else {
+                            requestCameraPermission(MEDIA_TYPE_IMAGE);
+                        }
                     }
                 })
                 .setNegativeButton("video", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
+                    public void onClick(DialogInterface dialog, int which) { //빈칸
+                        if(AppCamera.checkPermissions(getApplicationContext())){
+                            captureVideo();
+                        } else {
+                            requestCameraPermission(MEDIA_TYPE_VIDEO);
+                        }
                     }
                 })
                 .setCancelable(true)
@@ -144,7 +151,6 @@ public class PhotographyActivity extends AppCompatActivity {
      * Requesting permissions using Dexter library
      * (Dexter 라이브러리를 사용하여 권한 요청)
      */
-    /* 수정 필요
     private void requestCameraPermission(final int type) {
 
         Dexter.withActivity(this)
@@ -174,14 +180,28 @@ public class PhotographyActivity extends AppCompatActivity {
                     }
                 }).check();
     }
-*/
+
 
     /**
      * Capturing Camera Image will launch camera app requested image capture
      * 카메라 이미지 캡처링은 카메라 앱 요청 이미지 캡처를 시작합니다.
      */
-    private void captureImage() {
+    private void captureImage() { //빈칸
 
+        File file = AppCamera.getOutputMediaFile(getApplicationContext(), MEDIA_TYPE_IMAGE);
+
+        if (file != null) {
+            imageStoragePath = file.getAbsolutePath();
+        }
+
+        Uri fileUri = AppCamera.getOutputMediaFileUri(getApplicationContext(), file);
+
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+
+        // start the image capture Intent
+        startActivityForResult(intent, CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
 
     }
 
@@ -213,8 +233,23 @@ public class PhotographyActivity extends AppCompatActivity {
     /**
      * Launching camera app to record video
      */
-    private void captureVideo() {
+    private void captureVideo() { //빈칸
 
+        File file = AppCamera.getOutputMediaFile(getApplicationContext(),MEDIA_TYPE_VIDEO);
+
+        if (file != null) {
+            imageStoragePath = file.getAbsolutePath();
+        }
+
+        Uri fileUri = AppCamera.getOutputMediaFileUri(getApplicationContext(), file);
+
+        Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        // set video quality
+        intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file
+
+        // start the video capture Intent
+        startActivityForResult(intent, CAMERA_CAPTURE_VIDEO_REQUEST_CODE);
 
     }
 

@@ -1,4 +1,4 @@
-package com.example.administrator.ps5.App;
+package com.example.step5.App;
 
 import android.Manifest;
 import android.content.Context;
@@ -11,15 +11,13 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.Settings;
 //import android.support.v4.app.ActivityCompat;
-
+import androidx.core.app.ActivityCompat;
 //import android.support.v4.content.FileProvider;
-
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.FileProvider;
+import androidx.core.content.FileProvider;
 import android.util.Log;
 
-import com.example.administrator.ps5.BuildConfig;
-import com.example.administrator.ps5.PhotographyActivity;
+import com.example.step5.BuildConfig;
+import com.example.step5.PhotographyActivity;
 
 import java.io.File;
 import java.text.SimpleDateFormat;

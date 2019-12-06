@@ -1,4 +1,4 @@
-package com.example.administrator.ps5.Adapter;
+package com.example.step5.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 
-import com.example.administrator.ps5.R;
+import com.example.step5.R;
 
 import java.util.List;
 
