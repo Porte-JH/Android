@@ -287,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void previewCapturedImage(String imageName) {
 
-        try {
+        try { //빈칸
 
 
         } catch (NullPointerException e) {
@@ -301,7 +301,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void previewVideo(String imageName) {
 
-        try {
+        try { //빈칸
 
         }
         catch (Exception e) {
@@ -360,7 +360,7 @@ public class MainActivity extends AppCompatActivity {
                                     int resultCode, Intent intent) {
         if (requestCode == 1000) {
 
-            if (resultCode == RESULT_OK) {
+            if (resultCode == RESULT_OK) { //빈칸
 
 
 
@@ -414,7 +414,7 @@ public class MainActivity extends AppCompatActivity {
 
     private class PhotographyListener implements View.OnClickListener {
         @Override
-        public void onClick(View v) {
+        public void onClick(View v) { //빈칸
 
 
 

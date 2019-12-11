@@ -94,12 +94,12 @@ public class PhotographyActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(s.getName()+"의 이미지/동영상 지정!")
                 .setPositiveButton("photo", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(DialogInterface dialog, int which) { //빈칸
 
                     }
                 })
                 .setNegativeButton("video", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(DialogInterface dialog, int which) { //빈칸
 
                     }
                 })
@@ -177,7 +177,7 @@ public class PhotographyActivity extends AppCompatActivity {
      * Capturing Camera Image will launch camera app requested image capture
      * 카메라 이미지 캡처링은 카메라 앱 요청 이미지 캡처를 시작합니다.
      */
-    private void captureImage() {
+    private void captureImage() { //빈칸
 
 
     }
@@ -210,7 +210,7 @@ public class PhotographyActivity extends AppCompatActivity {
     /**
      * Launching camera app to record video
      */
-    private void captureVideo() {
+    private void captureVideo() { //빈칸
 
 
     }
