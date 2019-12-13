@@ -1,4 +1,4 @@
-package com.example.administrator.step6.Adapter;
+package com.example.administrator.myapplication.Adapter;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -13,12 +13,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.administrator.myapplication.Model.Student;
+import com.example.administrator.myapplication.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import info.example.app2student36.R;
-import info.example.app2student36.app.AppConfig;
-import info.example.app2student36.model.Student;
+
 
 public final class StudentAdapter extends ArrayAdapter<Student> {
 
@@ -34,7 +35,8 @@ public final class StudentAdapter extends ArrayAdapter<Student> {
     int position;
     boolean clickMode = false; // true for long click
 
-    public StudentAdapter(#, #, #) {
+    //인자 3개
+    public StudentAdapter(Activity activity, int resId, List<Student> list) {
 
         super(activity, resId, list);
         this.activity = activity;
@@ -55,13 +57,14 @@ public final class StudentAdapter extends ArrayAdapter<Student> {
             final Context mContext = getContext();
             final LayoutInflater inflater = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            view = inflater.inflate(#, null);
-
-            holder.hakbun = view.findViewById(#);
-            holder.name = view.findViewById(#);
-            holder.phone = view.findViewById(#);
-            holder.hakgoa = view.findViewById(#);
+            //인자 수정
+            view = inflater.inflate(R.layout.listitem_student, null);
+            //id 값 수정
+            holder.hakbun = view.findViewById(R.id.hakbun);
+            holder.name = view.findViewById(R.id.name);
+            holder.phone = view.findViewById(R.id.phone);
+            holder.hakgoa = view.findViewById(R.id.hakgoa);
+            // ~까지
             view.setTag(holder);
 
         } else {
@@ -72,18 +75,18 @@ public final class StudentAdapter extends ArrayAdapter<Student> {
         // getting attending data for the row
         s = getItem(position);
         if(D) Log.i(TAG, s.toString());
+        //함수 인자 수정
+        holder.hakbun.setText(s.getHakbun());
 
-        holder.hakbun.setText(#);
-
-        holder.name.setText(#);
+        holder.name.setText(s.getName());
 
         if(s.getPhone() == null)
             holder.phone.setText("010-0000-0000");
         else
-            holder.phone.setText(#);
+            holder.phone.setText(s.getPhone());
 
-        holder.hakgoa.setText(#);
-
+        holder.hakgoa.setText(s.getHakgoa());
+        // ~까지
         if ((selectedItemsIds.get(position) && clickMode)) {
             view.setBackgroundColor(0x9934B5E4);
         } else if ((position == this.position) && !clickMode) {
@@ -159,11 +162,11 @@ public final class StudentAdapter extends ArrayAdapter<Student> {
     }
 
     private static class ViewHolder {
-
-        public TextView #;
-        public TextView #;
-        public TextView #;
-        public TextView #;
+    //학번, 이름, 전화번호, 학과
+        public TextView hakbun;
+        public TextView name;
+        public TextView phone;
+        public TextView hakgoa;
     }
 
 }

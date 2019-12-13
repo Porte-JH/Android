@@ -1,4 +1,5 @@
-package com.example.administrator.step6;
+package com.example.administrator.myapplication;
+
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -17,8 +19,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import androidx.appcompat.app.AppCompatActivity;
 
+
+import com.example.administrator.myapplication.App.AppCamera;
+import com.example.administrator.myapplication.Model.Student;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -28,8 +32,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import java.io.File;
 import java.util.List;
 
-import info.example.app2student36.app.AppCamera;
-import info.example.app2student36.model.Student;
+
 
 public class PhotographyActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.administrator.step6.Helper;
+package com.example.administrator.myapplication.Helper;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,12 +6,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.example.administrator.myapplication.App.AppDate;
+import com.example.administrator.myapplication.Model.Code;
+import com.example.administrator.myapplication.Model.Student;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import info.example.app2student36.app.AppDate;
-import info.example.app2student36.model.Code;
-import info.example.app2student36.model.Student;
 
 public class DatabaseHelper extends android.database.sqlite.SQLiteOpenHelper {
 

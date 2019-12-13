@@ -1,4 +1,4 @@
-package com.example.administrator.step6.Adapter;
+package com.example.administrator.myapplication.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,9 +7,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.administrator.myapplication.R;
+
 import java.util.List;
 
-import info.example.app2student36.R;
+
 
 public class SpinnerAdapter extends ArrayAdapter<String> {
 

@@ -1,4 +1,4 @@
-package com.example.administrator.step6.App;
+package com.example.administrator.myapplication.App;
 
 import java.io.Serializable;
 

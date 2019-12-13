@@ -1,4 +1,4 @@
-package com.example.administrator.step6.App;
+package com.example.administrator.myapplication.App;
 
 import android.Manifest;
 import android.content.Context;
@@ -10,19 +10,22 @@ import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.Settings;
-//import android.support.v4.app.ActivityCompat;
+
 import androidx.core.app.ActivityCompat;
-//import android.support.v4.content.FileProvider;
 import androidx.core.content.FileProvider;
+
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
+
+
+import com.example.administrator.myapplication.PhotographyActivity;
+import com.karumi.dexter.BuildConfig;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
-import info.example.app2student36.BuildConfig;
-import info.example.app2student36.PhotographyActivity;
 
 public class AppCamera {
 
