@@ -1,0 +1,66 @@
+private void previewCapturedImage(String imageName) {
+
+        try { //빈칸
+            imgPreview.setVisibility(View.VISIBLE);
+            videoPreview.setVisibility(View.GONE);
+
+            Bitmap bitmap = AppCamera.optimizeBitmap(BITMAP_SAMPLE_SIZE, imageName);
+
+            imgPreview.setImageBitmap(bitmap);
+
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+private void previewVideo(String imageName) {
+
+        try { //빈칸
+            imgPreview.setVisibility(View.GONE);
+            videoPreview.setVisibility(View.VISIBLE);
+
+            videoPreview.setVideoPath(imageName);
+
+            videoPreview.start();
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+protected void onActivityResult(int requestCode,
+                                    int resultCode, Intent intent) {
+        if (requestCode == 1000) {
+
+            if (resultCode == RESULT_OK) {//빈칸
+
+                    imageStoragePath = intent.getStringExtra("imageStoragePath");
+
+                    s = db.saveImageName(num.getText().toString(), imageStoragePath);
+
+                    db.CloseDB();
+
+}
+
+private class PhotographyListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) { //빈칸
+            Intent i = new Intent(MainActivity.this, PhotographyActivity.class);
+
+            args.putSerializable("Student", s);
+
+            i.putExtras(args);
+
+            startActivityForResult(i, 1000);
+
+        }
+    }
+
+
+
